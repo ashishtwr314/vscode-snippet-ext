@@ -1,0 +1,69 @@
+{
+    "sbs": {
+        "prefix": "sbs",
+        "body": [
+            "const { data, error } = await supabase",
+            "\t.from('$1')",
+            "\t.select('$2')",
+            "",
+            "\tif (error) {",
+            "\t\tthrow new Error(error.details)",
+            "\t}",
+            "\treturn data;"
+        ],
+        "description": "Supabase select query"
+    },
+    "sbi": {
+        "prefix": "sbi",
+        "body": [
+            "const {data, error} = await supabase.from('$1').insert([$2]).select();",
+            "",
+            "\tif (error) {",
+            "\t\tthrow new Error(error.details)",
+            "\t}",
+            "",
+            "\treturn data ? data[0] : null;"
+        ],
+        "description": "Supabase insert query"
+    },
+    "sbu": {
+        "prefix": "sbu",
+        "body": [
+            "const {data, error} = await supabase.from('$1').update({$2}).eq('$3','$4')",
+            "",
+            "\tif (error) {",
+            "\t\tthrow new Error(error.details)",
+            "\t}",
+            "",
+            "\treturn data;"
+        ],
+        "description": "Supabase update query"
+    },
+    "sbsr": {
+        "prefix": "sbsr",
+        "body": [
+            "const {data, error} = await supabase.from('$1').select('*').textSearch('$2', {",
+            "\ttype: 'plain',",
+            "\tconfig: 'english'",
+            "})",
+            "",
+            "\tif (error) {",
+            "\t\tthrow new Error(error.details)",
+            "\t}",
+            "",
+            "\treturn data;"
+        ],
+        "description": "Supabase search query"
+    },
+    "sbd": {
+        "prefix": "sbd",
+        "body": [
+            "const {error} = await supabase.from('$1').delete().eq('$2','$3')",
+            "\tif (error) {",
+            "\t\tthrow new Error(error.message);",
+            "\t}",
+            "\treturn true;"
+        ],
+        "description": "Supabase delete query"
+    }
+}
